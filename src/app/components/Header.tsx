@@ -4,14 +4,17 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import ThemeToggle from './ThemeToggle';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { useAppDispatch } from '@/shared/lib/useAppDispatch';
 
 const Header = () => {
-  console.log('header - client component');
-  let data;
-  if (typeof localStorage !== 'undefined') {
-    data = localStorage.getItem('qwerty');
-  }
-  console.log(data);
+  const dispatch = useAppDispatch();
+  const { currentUser, isAuthenticated } = useSelector((state: RootState) => state.user);
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+  };
 
   return (
     <AppBar position="static">
@@ -25,7 +28,6 @@ const Header = () => {
         <Link href="/about">
           <Button color="inherit">О нас</Button>
         </Link>
-        <span>{data ?? 'no data'}</span>
         <ThemeToggle />
       </Toolbar>
     </AppBar>

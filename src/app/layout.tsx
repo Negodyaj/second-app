@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import { ThemeProvider } from "./theme-context";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,10 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
-          <ThemeProvider>
-            <Header />
-            {children}
-          </ThemeProvider>
+          <Provider store={store}>
+            <ThemeProvider>
+              <Header />
+              {children}
+            </ThemeProvider>
+          </Provider>
         </AppRouterCacheProvider>
       </body>
     </html>
