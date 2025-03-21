@@ -3,5 +3,6 @@ export interface Post {
   title: string;
   date: string;
   likes: number;
+  isLiked: boolean;
   userId: number;
 }
